@@ -29,7 +29,7 @@ These are handled by the Magisk module via `resetprop`:
 ## Requirements
 
 - Rooted Android device
-- [Magisk](https://github.com/topjohnwu/Magisk) installed
+- [Magisk](https://github.com/JingMatrix/LSPosed) installed
 - [LSPosed](https://github.com/LSPosed/LSPosed) installed
 - [DeviceSpoofLab-Magisk](https://github.com/yubunus/DeviceSpoofLab-Magisk) installed and configured
 
@@ -39,11 +39,11 @@ Download the latest APK from the [Releases](https://github.com/yubunus/DeviceSpo
 
 ## Quick Setup
 
-1. **Install LSPosed** via Magisk if not already installed
+1. **[Install LSPosed](https://github.com/JingMatrix/LSPosed)** via Magisk if not already installed
 
-2. **Install DeviceSpoofLab-Magisk** and run `DeviceSpoofLab` to configure a persona
+2. **[Install DeviceSpoofLab-Magisk](https://github.com/yubunus/DeviceSpoofLab-Magisk/releases)** and run `DeviceSpoofLab` to configure a persona
 
-3. **Install the APK** (download from Releases)
+3. **[Install the APK](https://github.com/yubunus/DeviceSpoofLab-Hooks/releases)** (download from Releases)
 
    ```bash
    adb install DeviceSpoofLab-Hooks-v1.0.apk
