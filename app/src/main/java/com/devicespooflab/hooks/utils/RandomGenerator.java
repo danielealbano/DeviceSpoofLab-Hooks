@@ -1,6 +1,10 @@
 package com.devicespooflab.hooks.utils;
 
 import java.security.SecureRandom;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 
 /**
@@ -103,6 +107,78 @@ public class RandomGenerator {
             androidId.append(hexChars.charAt(random.nextInt(16)));
         }
         return androidId.toString();
+    }
+
+    /**
+     * Generate Build.FINGERPRINT in format:
+     * brand/product/device:version/build_id/incremental:type/keys
+     */
+    public static String generateFingerprint() {
+        String buildId = generateBuildId();
+        String incremental = generateIncremental();
+        return String.format(
+            "google/cheetah/cheetah:15/%s/%s:user/release-keys",
+            buildId,
+            incremental
+        );
+    }
+
+    /**
+     * Generate Build ID (e.g., AP4A.241205.013)
+     * Format: [A-Z]{2}[0-9]{1,2}[A-Z]\.YYMMDD\.XXX
+     */
+    public static String generateBuildId() {
+        String prefix = "AP4A"; // Android 15 prefix
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd", Locale.US);
+        String date = dateFormat.format(new Date());
+        int build = random.nextInt(999) + 1;
+        return String.format("%s.%s.%03d", prefix, date, build);
+    }
+
+    /**
+     * Generate incremental build number (e.g., 12621605)
+     * 8-digit number
+     */
+    public static String generateIncremental() {
+        return String.format("%08d", random.nextInt(100000000));
+    }
+
+    /**
+     * Generate bootloader version (e.g., cheetah-1.2-A1B2C3D4)
+     */
+    public static String generateBootloader() {
+        StringBuilder hex = new StringBuilder();
+        String hexChars = "0123456789ABCDEF";
+        for (int i = 0; i < 8; i++) {
+            hex.append(hexChars.charAt(random.nextInt(16)));
+        }
+        return "cheetah-1.2-" + hex.toString();
+    }
+
+    /**
+     * Generate security patch date (YYYY-MM-DD)
+     * Returns a recent date within last 90 days
+     */
+    public static String generateSecurityPatch() {
+        Calendar cal = Calendar.getInstance();
+        // Random day within last 90 days
+        int daysAgo = random.nextInt(90);
+        cal.add(Calendar.DAY_OF_YEAR, -daysAgo);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        return dateFormat.format(cal.getTime());
+    }
+
+    /**
+     * Generate random hex string of specified length
+     */
+    public static String generateHex(int length) {
+        StringBuilder hex = new StringBuilder();
+        String hexChars = "0123456789abcdef";
+        for (int i = 0; i < length; i++) {
+            hex.append(hexChars.charAt(random.nextInt(16)));
+        }
+        return hex.toString();
     }
 
     private static int calculateLuhnCheckDigit(String number) {

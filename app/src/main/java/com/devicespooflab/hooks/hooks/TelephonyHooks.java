@@ -153,5 +153,90 @@ public class TelephonyHooks {
                     });
         } catch (NoSuchMethodError ignored) {
         }
+
+        // Hook network operator methods (MCC/MNC)
+        try {
+            XposedHelpers.findAndHookMethod(telephonyManager, "getNetworkOperator",
+                    new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) {
+                            String mccMnc = ConfigManager.getSystemProperty("gsm.operator.numeric", null);
+                            if (mccMnc != null) {
+                                param.setResult(mccMnc);
+                            }
+                        }
+                    });
+        } catch (NoSuchMethodError ignored) {
+        }
+
+        try {
+            XposedHelpers.findAndHookMethod(telephonyManager, "getNetworkOperatorName",
+                    new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) {
+                            String operatorName = ConfigManager.getSystemProperty("gsm.operator.alpha", null);
+                            if (operatorName != null) {
+                                param.setResult(operatorName);
+                            }
+                        }
+                    });
+        } catch (NoSuchMethodError ignored) {
+        }
+
+        try {
+            XposedHelpers.findAndHookMethod(telephonyManager, "getSimOperator",
+                    new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) {
+                            String simMccMnc = ConfigManager.getSystemProperty("gsm.sim.operator.numeric", null);
+                            if (simMccMnc != null) {
+                                param.setResult(simMccMnc);
+                            }
+                        }
+                    });
+        } catch (NoSuchMethodError ignored) {
+        }
+
+        try {
+            XposedHelpers.findAndHookMethod(telephonyManager, "getSimOperatorName",
+                    new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) {
+                            String simOperatorName = ConfigManager.getSystemProperty("gsm.sim.operator.alpha", null);
+                            if (simOperatorName != null) {
+                                param.setResult(simOperatorName);
+                            }
+                        }
+                    });
+        } catch (NoSuchMethodError ignored) {
+        }
+
+        try {
+            XposedHelpers.findAndHookMethod(telephonyManager, "getSimCountryIso",
+                    new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) {
+                            String simCountry = ConfigManager.getSystemProperty("gsm.sim.operator.iso-country", null);
+                            if (simCountry != null) {
+                                param.setResult(simCountry);
+                            }
+                        }
+                    });
+        } catch (NoSuchMethodError ignored) {
+        }
+
+        try {
+            XposedHelpers.findAndHookMethod(telephonyManager, "getNetworkCountryIso",
+                    new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) {
+                            String networkCountry = ConfigManager.getSystemProperty("gsm.operator.iso-country", null);
+                            if (networkCountry != null) {
+                                param.setResult(networkCountry);
+                            }
+                        }
+                    });
+        } catch (NoSuchMethodError ignored) {
+        }
     }
 }
