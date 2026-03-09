@@ -15,8 +15,10 @@ public class RandomGenerator {
     private static final SecureRandom random = new SecureRandom();
 
     public static String generateIMEI() {
-        String tac = "35847631"; // Generic Google TAC
+        return generateIMEIWithTAC("35847631");
+    }
 
+    public static String generateIMEIWithTAC(String tac) {
         StringBuilder serial = new StringBuilder();
         for (int i = 0; i < 6; i++) {
             serial.append(random.nextInt(10));

@@ -258,8 +258,12 @@ public class ConfigManager {
 
     public static String getIMEI() {
         if (cachedIMEI == null) {
-            // Config doesn't store IMEI (Magisk can't spoof it), always generate
-            cachedIMEI = RandomGenerator.generateIMEI();
+            String tac = getConfigValue("imei.tac");
+            if (tac != null && !tac.isEmpty()) {
+                cachedIMEI = RandomGenerator.generateIMEIWithTAC(tac);
+            } else {
+                cachedIMEI = RandomGenerator.generateIMEI();
+            }
         }
         return cachedIMEI;
     }
