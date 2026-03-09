@@ -48,6 +48,7 @@ public class ConfigManager {
         // Try each config path in order
         for (String configPath : CONFIG_PATHS) {
             File configFile = new File(configPath);
+            Log.i("DeviceSpoofLab-DEBUG", "Trying config: " + configPath + " exists=" + configFile.exists() + " canRead=" + configFile.canRead());
             if (configFile.exists() && configFile.canRead()) {
                 try (BufferedReader reader = new BufferedReader(new FileReader(configFile))) {
                     String line;
@@ -70,15 +71,15 @@ public class ConfigManager {
                             config.put(key, value);
                         }
                     }
-                    // Successfully read config, return it
+                    Log.i("DeviceSpoofLab-DEBUG", "Config loaded from " + configPath + " (" + config.size() + " entries, imei.tac=" + config.get("imei.tac") + ")");
                     return config;
                 } catch (Exception e) {
-                    // Failed to read this config, try next path
+                    Log.e("DeviceSpoofLab-DEBUG", "Failed to read " + configPath + ": " + e.getMessage());
                 }
             }
         }
 
-        // No config file found, use embedded defaults
+        Log.w("DeviceSpoofLab-DEBUG", "No config file found, using embedded defaults");
         return getEmbeddedDefaults();
     }
 
