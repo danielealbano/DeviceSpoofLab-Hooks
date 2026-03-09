@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
+import android.util.Log;
 
 /**
  * Manages configuration for spoofed values.
@@ -261,8 +262,10 @@ public class ConfigManager {
             String tac = getConfigValue("imei.tac");
             if (tac != null && !tac.isEmpty()) {
                 cachedIMEI = RandomGenerator.generateIMEIWithTAC(tac);
+                Log.i("DeviceSpoofLab-DEBUG", "IMEI generated with TAC " + tac + ": " + cachedIMEI);
             } else {
                 cachedIMEI = RandomGenerator.generateIMEI();
+                Log.i("DeviceSpoofLab-DEBUG", "IMEI generated with default TAC: " + cachedIMEI);
             }
         }
         return cachedIMEI;
