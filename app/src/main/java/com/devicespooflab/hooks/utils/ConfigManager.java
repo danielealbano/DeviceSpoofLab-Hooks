@@ -19,7 +19,8 @@ public class ConfigManager {
     // to avoid conflicts. This LSPosed module is standalone.
     private static final String[] CONFIG_PATHS = {
         "/data/data/com.devicespooflab.hooks/files/device_profile.conf",  // App's private storage
-        "/sdcard/DeviceSpoofLab-Hooks/device_profile.conf"                 // SD card fallback
+        "/sdcard/DeviceSpoofLab-Hooks/device_profile.conf",               // SD card fallback
+        "/data/local/tmp/DeviceSpoofLab-Hooks/device_profile.conf"        // World-readable fallback (Redroid)
     };
 
     // Cached configuration
